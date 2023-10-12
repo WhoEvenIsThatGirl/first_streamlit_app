@@ -59,7 +59,7 @@ streamlit.text("Hello from Snowflake:")
 streamlit.text(my_data_row) 
 
 streamlit.header('Choose Your Fruit')
-add_my_fruit = streamlit.text_input('What fruit would you like to add?','Kiwi')
+add_my_fruit = streamlit.text_input('What fruit would you like to add?')
 streamlit.write('Thanks for adding', add_my_fruit)
 
 fruityvice_response_2 = requests.get("https://fruityvice.com/api/fruit/" + add_my_fruit)
