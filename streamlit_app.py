@@ -31,11 +31,6 @@ fruits_to_show_2 = my_fruit_list.loc[fruit_choice]
 
 streamlit.dataframe(fruits_to_show_2)
 
-streamlit.write('The user entered', fruit_choice)
-
-#New Section to display fruityvice api response
-
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 
 streamlit.stop()
 
