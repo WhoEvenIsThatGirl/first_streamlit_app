@@ -36,7 +36,7 @@ except URLError as e:
   streamlit.error()
 
 
-add_my_fruit = streamlit.text_input('What fruit would you like to add?')
+add_my_fruit = streamlit.text_input('What fruit would you like to add?', 'Kiwi')
 streamlit.write('Thanks for adding', add_my_fruit)
 
 add_normalized = pandas.json_normalize(add_my_fruit.json())
