@@ -50,23 +50,44 @@ streamlit.dataframe(add_normalized)
 
 add_response = requests.get("https://fruityvice.com/api/fruit/add_my_fruit")
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+streamlit.header("The fruit load list contains:")
+#Snowflake-related functions
+def get_fruit_load_list():
+    with my_cnx.cursor() as my_cur:
+         my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+         return my_cur.fetchall()
+#add a button to load the fruit
+if streamlit.button('Get Fruit Load List'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    my_data_rows = get_fruit_load_list()
+    streamlit.dataframe(my_data_rows)
+
+#allow the end user to add a fruit to the list
+def insert_row_snowflake(new_fruit):
+    with my_cnx.cursor() as my_cur:
+        my_cur.execute("insert into fruit_load_list values ('from streamlit')")
+        return "Thanks for adding " + new_Fruit
+
+add_my_fruit = streamlit.text_input('What fruit would you like to add?')
+if streamlit.button('Add a Fruit to the List'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    back_from_funciton = insert_row_snowflake(add_my_fruit)
+    streamlit.text(back from function)
+    
+streamlit.write('Thanks for adding', add_my_fruit)
+
+#This will not work correctly, but just go withi it for now
+
+
 my_cur = my_cnx.cursor()
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
-my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains:")
-streamlit.dataframe(my_data_rows)
 my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
 my_data_row = my_cur.fetchone()
 streamlit.text("Hello from Snowflake:")
 streamlit.text(my_data_row) 
 
 streamlit.header('Choose Your Fruit')
-add_my_fruit = streamlit.text_input('What fruit would you like to add?')
-streamlit.write('Thanks for adding', add_my_fruit)
 
 fruityvice_response_2 = requests.get("https://fruityvice.com/api/fruit/" + add_my_fruit)
 
