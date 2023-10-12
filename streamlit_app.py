@@ -24,7 +24,6 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 
 
-streamlit.stop()
 
 
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
