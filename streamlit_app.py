@@ -58,4 +58,14 @@ streamlit.header('Choose Your Fruit')
 add_my_fruit = streamlit.text_input('What fruit would you like to add?','Kiwi')
 streamlit.write('Thanks for adding', add_my_fruit)
 
+fruityvice_response_2 = requests.get("https://fruityvice.com/api/fruit/" + add_my_fruit)
+
+streamlit.stop()
+
+
+fruityvice_normalized_2 = pandas.json_normalize(fruityvice_response_2.json())
+
+streamlit.dataframe(fruityvice_normalized_2)
+
+
 my_cur.execute("insert into fruit_load_list values ('from streamlit')")
